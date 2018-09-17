@@ -1,20 +1,28 @@
 package com.derkach.boot.hello_back_end;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "contacts")
 public class Contacts {
+	@Id
+	@GeneratedValue(generator = "answer_generator")
+	@SequenceGenerator(name = "answer_generator", sequenceName = "answer_sequence")
+	private final long id;
+	
+	@Column(columnDefinition = "text")
+	private final String name;
 
-    private final long id;
-    private final String content;
+	public Contacts(long id, String content) {
+		this.id = id;
+		this.name = content;
+	}
 
-    public Contacts(long id, String content) {
-        this.id = id;
-        this.content = content;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
-    }
+	public String getName() {
+		return name;
+	}
 }
