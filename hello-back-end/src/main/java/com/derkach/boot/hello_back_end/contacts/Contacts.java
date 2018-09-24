@@ -1,7 +1,11 @@
 package com.derkach.boot.hello_back_end.contacts;
 
 import java.util.List;
-
+/**
+ * list of contacts
+ * @author alex
+ *
+ */
 public class Contacts {
 	
 	private List<Contact> contacts;

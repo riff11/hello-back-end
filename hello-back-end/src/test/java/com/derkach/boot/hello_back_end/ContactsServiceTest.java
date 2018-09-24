@@ -55,16 +55,16 @@ public class ContactsServiceTest {
 	}
 
 	@Test
-	public final void testGetContacts() throws IOException, ParseException {
+	public final void testGetContacts() throws Exception {
 		fillList("/testContacts");	
 		when(this.contactsRepository.findAll()).thenReturn(cList);
 		long i = contactsRepository.findAll().size();
 		System.out.println(i);
-		assertTrue(contactsService.getContacts("^C.*$").getContacts().size() == i-9); 
+		assertTrue(contactsService.filter("^C.*$").getContacts().size() == i-9); 
 		
-		assertTrue(contactsService.getContacts("^Mohammad.*$").getContacts().size() == i-1); 
+		assertTrue(contactsService.filter("^Mohammad.*$").getContacts().size() == i-1); 
 		
-		assertTrue(contactsService.getContacts("^.*[gif].*$").getContacts().size() == i-52); 		
+		assertTrue(contactsService.filter("^.*[gif].*$").getContacts().size() == i-52); 		
 	}
 
 }

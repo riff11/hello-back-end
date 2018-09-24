@@ -6,18 +6,23 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;
 
+/**
+ * Customizer for tomcat
+ * 
+ * @author alex
+ *
+ */
 @Component
-public class MyTomcatWebServerCustomizer
-        implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+public class MyTomcatWebServerCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
 
-    @Override
-    public void customize(TomcatServletWebServerFactory factory) {
-        factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
-            @Override
-            public void customize(Connector connector) {
-            	connector.setAttribute("relaxedPathChars", "!#$&'()*+,/:;=?@[]\"%-.<>\\^_`{|}~");
-                connector.setAttribute("relaxedQueryChars", "!#$&'()*+,/:;=?@[]\"%-.<>\\^_`{|}~");
-            }
-        });
-    }
+	@Override
+	public void customize(TomcatServletWebServerFactory factory) {
+		factory.addConnectorCustomizers(new TomcatConnectorCustomizer() {
+			@Override
+			public void customize(Connector connector) {
+				connector.setAttribute("relaxedPathChars", "!#$&'()*+,/:;=?@[]\"%-.<>\\^_`{|}~");
+				connector.setAttribute("relaxedQueryChars", "!#$&'()*+,/:;=?@[]\"%-.<>\\^_`{|}~");
+			}
+		});
+	}
 }
