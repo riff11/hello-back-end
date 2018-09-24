@@ -1,25 +1,26 @@
 package com.derkach.boot.hello_back_end;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.derkach.boot.hello_back_end.repository.ContactsRepository;
+import com.derkach.boot.hello_back_end.contacts.Contacts;
 
 @RestController
 public class ContactsController {
 
 //	private static final String template = "Hello, %s!";
 	@Autowired
-	private ContactsRepository contactsRepository;
+	private ContactsService contactsService; 
 
+	
+	//^ - %5E
+	//$ - %24
+	//^.*[a].*$  - nameFilter=%5E.%2A%5Ba%5D.%2A$
 	@RequestMapping("/hello/contacts")
-	public List<Contacts> filter(@RequestParam(value = "nameFilter", defaultValue = "World") String regexp) {
-		
-		return contactsRepository.findAll().stream().filter(contact -> {return !contact.getName().matches(regexp); }).collect(Collectors.toList());
+	public Contacts filter(@RequestParam(value = "nameFilter") String regexp) {
+		System.out.println(regexp);
+		return contactsService.getContacts(regexp);
 	}
 }
