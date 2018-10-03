@@ -16,6 +16,8 @@ public class Contacts {
 		this.contacts = contacts;
 	}
 
+	public Contacts() {
+	}
 
 	public List<Contact> getContacts() {
 		return contacts;

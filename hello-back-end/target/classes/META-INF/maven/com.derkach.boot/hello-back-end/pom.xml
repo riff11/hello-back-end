@@ -13,7 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<tomcat-jdbc.version>9.0.10</tomcat-jdbc.version>
-        <h2database.version>1.4.197</h2database.version>
+		<h2database.version>1.4.197</h2database.version>
+		<json-unit-fluent.version>1.5.3</json-unit-fluent.version>
 	</properties>
 
 	<parent>
@@ -27,12 +28,19 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<!-- <version>${h2database.version}</version> -->
-			<!-- <scope>runtime</scope> -->
+			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>net.javacrumbs.json-unit</groupId>
+			<artifactId>json-unit-fluent</artifactId>
+			<version>${json-unit-fluent.version}</version>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-jdbc</artifactId>
-			<version>${tomcat-jdbc.version}</version>
+			<!-- <version>${tomcat-jdbc.version}</version> -->
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
@@ -58,11 +66,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+		<!-- <dependency> <groupId>org.postgresql</groupId> <artifactId>postgresql</artifactId> 
+			<scope>runtime</scope> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

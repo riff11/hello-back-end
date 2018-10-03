@@ -18,6 +18,19 @@ public class ContactsService {
 
 	@Autowired
 	private ContactsRepository contactsRepository;
+	
+	
+
+	public ContactsService(ContactsRepository contactsRepository) {
+		this.contactsRepository = contactsRepository;
+	}
+	
+	
+
+	public ContactsService() {
+	}
+
+
 
 	/**
 	 * geting filtered list

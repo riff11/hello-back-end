@@ -1,12 +1,17 @@
 package com.derkach.boot.hello_back_end.contacts;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "contacts")
-public class Contact {
+public class Contact implements Serializable {
+	
+	private static final long serialVersionUID = 8827488035495682118L;
+
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private  long id;
 	
 	@Column(columnDefinition = "text")
@@ -20,6 +25,9 @@ public class Contact {
 		this.name = content;
 	}
 	
+	public Contact( String content) {
+		this.name = content;
+	}
 	
 
 	@Override
