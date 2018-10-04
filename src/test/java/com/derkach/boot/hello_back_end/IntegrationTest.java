@@ -3,8 +3,6 @@ package com.derkach.boot.hello_back_end;
 import static net.javacrumbs.jsonunit.fluent.JsonFluentAssert.assertThatJson;
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.derkach.boot.hello_back_end.contacts.Contacts;
+import com.derkach.boot.hello_back_end.exceptions.ErrorDetails;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -38,24 +37,24 @@ public class IntegrationTest {
 				userServiceUrl + port + "/hello/contacts?nameFilter=.*Theodor Blaskett.*", Contacts.class);
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
-		System.out.println(response.getHeaders().getContentType());
+//		System.out.println(response.getHeaders().getContentType());
 		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
 		assertThatJson(response.getBody()).node("contacts").isArray().ofLength(expectedResult);
 
-		response = restTemplate.getForEntity(userServiceUrl + port + "/hello/contacts", Contacts.class);
+		ResponseEntity<ErrorDetails> responseError = restTemplate.getForEntity(userServiceUrl + port + "/hello/contacts", ErrorDetails.class);
 
-		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-		System.out.println(response.getHeaders().getContentType());
-		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
-		assertThatJson(response.getBody()).node("message")
+		assertEquals(HttpStatus.BAD_REQUEST, responseError.getStatusCode());
+//		System.out.println(responseError.getHeaders().getContentType());
+		assertEquals(responseError.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+		assertThatJson(responseError.getBody()).node("message")
 				.isEqualTo("Required String parameter 'nameFilter' is not present");
 
-		response = restTemplate.getForEntity(userServiceUrl + port + "/hello/contact", Contacts.class);
+		responseError = restTemplate.getForEntity(userServiceUrl + port + "/hello/contact", ErrorDetails.class);
 
-		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-		System.out.println(response.getHeaders().getContentType());
-		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
-		assertThatJson(response.getBody()).node("message").isEqualTo("No handler found for GET /hello/contact");
+		assertEquals(HttpStatus.NOT_FOUND, responseError.getStatusCode());
+//		System.out.println(responseError.getHeaders().getContentType());
+		assertEquals(responseError.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+		assertThatJson(responseError.getBody()).node("message").isEqualTo("No handler found for GET /hello/contact");
 	}
 
 }

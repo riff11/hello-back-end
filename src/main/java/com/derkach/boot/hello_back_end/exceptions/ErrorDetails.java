@@ -23,6 +23,10 @@ public class ErrorDetails {
 		this.status = status;
 		this.path = path;
 	}
+	
+	public ErrorDetails() {
+		
+	}
 
 	public LocalDateTime getTime() {
 		return time;
