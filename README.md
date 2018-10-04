@@ -1,4 +1,4 @@
-# REST сервис ![CI status](https://img.shields.io/badge/build-passing-brightgreen.svg)
+# REST сервис [![Build Status](https://travis-ci.com/riff11/hello-back-end.svg?branch=master)](https://travis-ci.com/riff11/hello-back-end)
 
 REST сервис на Spring Boot со встроенной базой H2SQL
 
