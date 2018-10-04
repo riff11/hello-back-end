@@ -18,22 +18,13 @@ import com.derkach.boot.hello_back_end.contacts.Contact;
 import com.derkach.boot.hello_back_end.repository.ContactsRepository;
 
 @RunWith(SpringRunner.class)
-//@SqlGroup({
-//    @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:beforeTestRun.sql"),
-//    @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:afterTestRun.sql")
-//
-//          })
 @DataJpaTest
 public class SpringDataTest {
 
-//	@Autowired
-//	private TestEntityManager entityManager;
 
 	@Autowired
 	private ContactsRepository contactsRepository;
 	
-	
-
 
 	@Test
 	public final void findAll() throws IOException, ParseException {
