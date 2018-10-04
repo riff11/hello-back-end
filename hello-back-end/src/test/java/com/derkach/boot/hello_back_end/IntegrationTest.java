@@ -22,7 +22,6 @@ import com.derkach.boot.hello_back_end.contacts.Contacts;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class IntegrationTest {
 
-
 	private final static String userServiceUrl = "http://localhost:";
 
 	@LocalServerPort
@@ -31,7 +30,6 @@ public class IntegrationTest {
 	TestRestTemplate restTemplate = new TestRestTemplate();
 
 	int expectedResult = 520000 - 520;
-
 
 	@Test
 	public final void test() {
@@ -43,6 +41,21 @@ public class IntegrationTest {
 		System.out.println(response.getHeaders().getContentType());
 		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
 		assertThatJson(response.getBody()).node("contacts").isArray().ofLength(expectedResult);
+
+		response = restTemplate.getForEntity(userServiceUrl + port + "/hello/contacts", Contacts.class);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		System.out.println(response.getHeaders().getContentType());
+		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+		assertThatJson(response.getBody()).node("message")
+				.isEqualTo("Required String parameter 'nameFilter' is not present");
+
+		response = restTemplate.getForEntity(userServiceUrl + port + "/hello/contact", Contacts.class);
+
+		assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		System.out.println(response.getHeaders().getContentType());
+		assertEquals(response.getHeaders().getContentType().toString(), MediaType.APPLICATION_JSON_UTF8_VALUE);
+		assertThatJson(response.getBody()).node("message").isEqualTo("No handler found for GET /hello/contact");
 	}
 
 }
